@@ -67,8 +67,6 @@
     };
     extensions = {
       fzf-native.enable = true;
-      frecency.enable = true;
-      undo.enable = true;
     };
   };
   keymaps = [
@@ -79,30 +77,11 @@
       mode = ["n"];
     }
     {
-      key = "<leader>fu";
-      action = "Telescope undo<CR>";
-      options.desc = "Undo";
-      mode = ["n"];
-    }
-    {
       key = "<leader>fC";
       action = "function() require('telescope.builtin').colorscheme({ enable_preview = true }) end";
       lua = true;
       options.desc = "Colorscheme";
       mode = ["n"];
     }
-    {
-      key = "<leader>fz";
-      action = "<cmd>Telescope zoxide list<CR>";
-      options.desc = "Zoxide";
-      mode = ["n"];
-    }
-  ];
-  extraConfigLua = ''
-    require('telescope').load_extension('zoxide')
-  '';
-  extraPlugins = with pkgs.vimPlugins; [
-    telescope-zoxide
-    nvim-code-action-menu
   ];
 }
