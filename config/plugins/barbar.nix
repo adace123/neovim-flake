@@ -1,7 +1,6 @@
 {
   plugins.barbar = {
     enable = true;
-    animation = true;
     clickable = true;
     semanticLetters = true;
     sidebarFiletypes = {
