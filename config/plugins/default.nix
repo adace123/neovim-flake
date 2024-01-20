@@ -34,7 +34,6 @@
         navPrev = "[[";
       };
     };
-    # notify.enable = true;
     nvim-autopairs = {
       enable = true;
       checkTs = true;
@@ -47,13 +46,32 @@
     which-key.enable = true;
     better-escape.enable = true;
     undotree.enable = true;
-    project-nvim.enable = true;
-    # noice.enable = true;
+    floaterm = {
+      enable = true;
+      opener = "edit";
+    };
   };
   extraPlugins = with pkgs.vimPlugins; [
     overseer-nvim
     plenary-nvim
     nvim-web-devicons
     nvim-spectre
+    persistence-nvim
   ];
+  # autoCmd = [
+  #   {
+  #     event = "BufReadPre";
+  #     command = ":lua require('persistence').save()";
+  #   }
+  # ];
+  userCommands = {
+    SessionRestore = {
+      nargs = "*";
+      command = ":lua require('persistence').load()";
+    };
+    LastSessionRestore = {
+      nargs = "*";
+      command = ":lua require('persistence').load({ last = true })";
+    };
+  };
 }

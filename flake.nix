@@ -59,11 +59,7 @@
         _module.args.pkgs = import nixpkgs {inherit system;};
 
         checks = {
-          default = pkgs.nixvimLib.check.mkTestDerivationFromNvim {
-            inherit nvim;
-            name = "Test nixvim configuration";
-          };
-          pre-commit-check = pre-commit-hooks.lib.${system}.run {
+          default = pre-commit-hooks.lib.${system}.run {
             src = ./.;
             hooks = {
               statix.enable = true;

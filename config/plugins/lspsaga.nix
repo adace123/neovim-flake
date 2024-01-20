@@ -10,11 +10,12 @@
         scrollDown = "<C-j>";
         scrollUp = "<C-k>";
       };
+      finder.keys.toggleOrOpen = "<CR>";
     };
   };
   keymaps = [
     {
-      key = "<leader>cf";
+      key = "gr";
       action = "<cmd>Lspsaga finder<CR>";
       options.desc = "Lsp finder";
       mode = ["n"];
@@ -26,19 +27,13 @@
       mode = ["n"];
     }
     {
-      key = "<leader>ca";
-      action = "<cmd>Lspsaga code_action<CR>";
-      options.desc = "Code action";
-      mode = ["v"];
-    }
-    {
       key = "<leader>cr";
       action = "<cmd>Lspsaga rename ++project<CR>";
       options.desc = "Rename word in project";
       mode = ["n"];
     }
     {
-      key = "<leader>cF";
+      key = "<leader>cf";
       action = "function() vim.lsp.buf.format() end";
       lua = true;
       options.desc = "Format";

@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   plugins.telescope = {
     enable = true;
     extraOptions = {
@@ -44,10 +44,6 @@
         action = "keymaps";
         desc = "Keymaps";
       };
-      "<leader>fw" = {
-        action = "live_grep";
-        desc = "Grep";
-      };
       "<leader>fj" = {
         action = "jumplist";
         desc = "Jumplist";
@@ -81,6 +77,13 @@
       action = "function() require('telescope.builtin').colorscheme({ enable_preview = true }) end";
       lua = true;
       options.desc = "Colorscheme";
+      mode = ["n"];
+    }
+    {
+      key = "<leader>fw";
+      action = "function() require('telescope.builtin').live_grep({ find_command = {'rg', '--smart-case'} }) end";
+      lua = true;
+      options.desc = "Grep";
       mode = ["n"];
     }
   ];

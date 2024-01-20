@@ -1,21 +1,5 @@
 {pkgs, ...}: {
   extraPlugins = [pkgs.vimPlugins.persistence-nvim];
-  autoCmd = [
-    {
-      event = "BufReadPre";
-      command = ":lua require('persistence').save()";
-    }
-  ];
-  userCommands = {
-    SessionRestore = {
-      nargs = "*";
-      command = ":lua require('persistence').load()";
-    };
-    LastSessionRestore = {
-      nargs = "*";
-      command = ":lua require('persistence').load({ last = true })";
-    };
-  };
   extraConfigLua = "require('persistence').setup()";
   plugins = {
     auto-session = {
@@ -25,6 +9,7 @@
 
     alpha = {
       enable = true;
+      iconsEnabled = true;
       layout = [
         {
           type = "padding";
@@ -49,46 +34,46 @@
           type = "padding";
           val = 2;
         }
-        {
-          type = "group";
-          val = [
-            {
-              command = "<CMD>ene <CR>";
-              desc = "  New file";
-              shortcut = "e";
-            }
-            {
-              command = "<CMD>:SessionRestore<CR>";
-              desc = "󰦛 Restore Session";
-              shortcut = "<leader>sr";
-            }
-            {
-              command = "<CMD>:LastSessionRestore<CR>";
-              desc = "󰦛 Restore Last Session";
-              shortcut = "<leader>sR";
-            }
-            {
-              command = "<CMD>:Telescope oldfiles<CR>";
-              desc = "󰱽 Find File";
-              shortcut = "<C-p>";
-            }
-            {
-              command = "<CMD>:Telescope live_grep<CR>";
-              desc = " Find in Files (grep)";
-              shortcut = "<leader>fg";
-            }
-            {
-              command = "<CMD>:LazyGit<CR>";
-              desc = " LazyGit";
-              shortcut = "<leader>gg";
-            }
-            {
-              command = ":qa<CR>";
-              desc = "󰗼  Quit Neovim";
-              shortcut = "<leader>q";
-            }
-          ];
-        }
+        #   {
+        #     type = "group";
+        #     val = [
+        #       {
+        #         command = "<CMD>ene <CR>";
+        #         desc = "  New file";
+        #         shortcut = "e";
+        #       }
+        #       {
+        #         command = "<CMD>:SessionRestore<CR>";
+        #         desc = "󰦛 Restore Session";
+        #         shortcut = "<leader>sr";
+        #       }
+        #       {
+        #         command = "<CMD>:LastSessionRestore<CR>";
+        #         desc = "󰦛 Restore Last Session";
+        #         shortcut = "<leader>sR";
+        #       }
+        #       {
+        #         command = "<CMD>:Telescope oldfiles<CR>";
+        #         desc = "󰱽 Find File";
+        #         shortcut = "<C-p>";
+        #       }
+        #       {
+        #         command = "<CMD>:Telescope live_grep<CR>";
+        #         desc = " Find in Files (grep)";
+        #         shortcut = "<leader>fg";
+        #       }
+        #       {
+        #         command = "<CMD>:LazyGit<CR>";
+        #         desc = " LazyGit";
+        #         shortcut = "<leader>gg";
+        #       }
+        #       {
+        #         command = ":qa<CR>";
+        #         desc = "󰗼  Quit Neovim";
+        #         shortcut = "<leader>q";
+        #       }
+        #     ];
+        #   }
         {
           type = "padding";
           val = 2;

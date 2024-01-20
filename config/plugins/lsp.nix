@@ -4,27 +4,9 @@
       enable = true;
       lsp.autoAttach = true;
     };
-    navic.enable = true;
     fidget.enable = true;
     lsp = {
       enable = true;
-      onAttach = ''
-        vim.api.nvim_create_autocmd("CursorHold", {
-          buffer = bufnr,
-          callback = function()
-            local opts = {
-              focusable = false,
-              close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-              border = "rounded",
-              source = "always",
-              prefix = " ",
-              scope = "line",
-            }
-            vim.diagnostic.show()
-            vim.diagnostic.open_float(nil, opts)
-          end,
-        })
-      '';
       preConfig = ''
         -- add additional capabilities supported by nvim-cmp
         -- nvim has not added foldingRange to default capabilities, users must add it manually
@@ -47,23 +29,29 @@
         lua-ls.enable = true;
         pyright.enable = true;
         jsonls.enable = true;
-        yamlls.enable = true;
+        yamlls = {
+          enable = true;
+          extraOptions.capabilities.textDocument.foldingRange = {
+            dynamicRegistration = false;
+            lineFoldingOnly = true;
+          };
+        };
         nixd.enable = true;
         ruff-lsp.enable = true;
-        rust-analyzer.enable = true;
+        rust-analyzer = {
+          enable = true;
+          installCargo = false;
+          installRustc = false;
+        };
         tsserver.enable = true;
         zls.enable = true;
         gopls.enable = true;
       };
       keymaps = {
         silent = true;
-        diagnostic = {
-          "<leader>k" = "goto_prev";
-          "<leader>j" = "goto_next";
-        };
         lspBuf = {
-          "gK" = "signature_help";
-          "ca" = "code_action";
+          "<leader>cf" = "format";
+          # other LSP functionality handled by LspSaga
         };
       };
     };
@@ -75,30 +63,16 @@
       options.desc = "Navbuddy";
       mode = ["n"];
     }
+    {
+      key = "<leader>cR";
+      action = ":LspRestart<CR>";
+      options.desc = "LspRestart";
+      mode = ["n"];
+    }
   ];
   extraPlugins = [pkgs.vimPlugins.nvim-nu];
   extraConfigLua = ''
     -- set up nvim-nu
     require("nu").setup()
-
-    -- show diagnostics when InsertLeave
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "go", "rust", "nix", "haskell" },
-      callback = function(args)
-        vim.api.nvim_create_autocmd("DiagnosticChanged", {
-          buffer = args.buf,
-          callback = function()
-            vim.diagnostic.hide()
-          end,
-    })
-
-    vim.api.nvim_create_autocmd({ "InsertLeave", "BufWritePost" }, {
-          buffer = args.buf,
-            callback = function()
-              vim.diagnostic.show()
-            end,
-        })
-      end,
-    })
   '';
 }

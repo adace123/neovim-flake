@@ -13,7 +13,7 @@
           stylua.enable = true;
           shfmt.enable = true;
           taplo.enable = true;
-          prettier.enable = true;
+          # prettier.enable = true;
           eslint_d.enable = true;
         };
         diagnostics = {
@@ -22,11 +22,6 @@
           statix.enable = true;
         };
       };
-      onAttach = ''
-        function(client, bufnr)
-          require("lsp-format").on_attach(client)
-        end
-      '';
     };
   };
 }
