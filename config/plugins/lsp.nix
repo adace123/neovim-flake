@@ -46,6 +46,7 @@
         tsserver.enable = true;
         zls.enable = true;
         gopls.enable = true;
+        nushell.enable = true;
       };
       keymaps = {
         silent = true;
@@ -70,9 +71,11 @@
       mode = ["n"];
     }
   ];
-  extraPlugins = [pkgs.vimPlugins.nvim-nu];
-  extraConfigLua = ''
-    -- set up nvim-nu
-    require("nu").setup()
-  '';
+  autoCmd = [
+    {
+      event = ["BufNewFile" "BufRead"];
+      pattern = ["*.nu"];
+      command = "set ft=nu";
+    }
+  ];
 }
